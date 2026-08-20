@@ -76,10 +76,10 @@ DS_Lab/
 
 ### Circular Linked List
 
-- Insert Node
-- Delete Node
-- Search Node
-- Circular Traversal
+- Insert at end
+- Delete the first matching value
+- Search for a value
+- Traverse from the head until the head is reached again
 
 ### Stack
 
@@ -112,6 +112,14 @@ Linked List Implementation
 - Dequeue
 - Peek
 - Display
+
+### Binary Search Tree
+
+- Create a fresh BST from a batch of values
+- Ignore duplicate values
+- Display preorder, inorder, and postorder traversals
+- Search for a value
+- Release all allocated nodes before exit
 
 ---
 
