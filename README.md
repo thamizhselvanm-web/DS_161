@@ -233,6 +233,9 @@ and resource ownership. They include:
 Malformed input causes the current program to terminate safely after reporting
 the error; it is never used as an uninitialized or stale integer value.
 
+See [REVIEW.md](REVIEW.md) for the experiment-by-experiment review findings,
+verification status, and recommended interactive boundary scenarios.
+
 ---
 
 ## Academic Use
