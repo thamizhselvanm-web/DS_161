@@ -51,6 +51,7 @@ static void enqueue(Queue *queue, int data);
 static void dequeue(Queue *queue);
 static void peek(const Queue *queue);
 static void display(const Queue *queue);
+static int read_int(const char *prompt, int *value);
 
 /* ========================================================================= */
 
@@ -73,16 +74,14 @@ int main(void)
         printf("4. Display\n");
         printf("5. Exit\n");
         printf("----------------------------------------\n");
-        printf("Enter your choice: ");
-
-        if (scanf("%d", &choice) != 1)
+        if (!read_int("Enter your choice: ", &choice))
             return EXIT_FAILURE;
 
         switch (choice)
         {
             case 1:
-                printf("Enter data: ");
-                scanf("%d", &data);
+                if (!read_int("Enter data: ", &data))
+                    break;
                 enqueue(&queue, data);
                 break;
 
@@ -106,6 +105,26 @@ int main(void)
                 printf("Invalid choice. Please try again.\n");
         }
     }
+}
+
+static int read_int(const char *prompt, int *value)
+{
+    int result;
+    int character;
+
+    printf("%s", prompt);
+    result = scanf("%d", value);
+
+    while ((character = getchar()) != '\n' && character != EOF)
+        ;
+
+    if (result != 1)
+    {
+        printf("Invalid input.\n");
+        return 0;
+    }
+
+    return 1;
 }
 
 /* ========================================================================= */
