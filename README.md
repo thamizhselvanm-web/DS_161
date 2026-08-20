@@ -161,6 +161,7 @@ The worst case occurs when inserted values produce a completely skewed tree.
 - Stack using Linked List
 - Queue using Circular Array
 - Queue using Linked List
+- Binary Search Tree with recursive traversals
 
 ---
 
@@ -187,6 +188,7 @@ After completing these programs, students will understand:
 - Linear data structures
 - Circular linked structures
 - Stack and Queue operations
+- Binary Search Tree insertion, search, and traversal
 - Algorithmic time complexity
 - Modular programming in C
 
