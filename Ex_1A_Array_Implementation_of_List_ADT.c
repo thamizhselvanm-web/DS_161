@@ -47,6 +47,7 @@ static void insert_element(List *list);
 static void delete_element(List *list);
 static void search_element(const List *list);
 static void display_list(const List *list);
+static int read_int(const char *prompt, int *value);
 
 /* ========================================================================= */
 
@@ -69,11 +70,8 @@ int main(void)
         printf("5. Display List\n");
         printf("6. Exit\n");
         printf("----------------------------------------\n");
-        printf("Enter your choice: ");
-
-        if (scanf("%d", &choice) != 1)
+        if (!read_int("Enter your choice: ", &choice))
         {
-            printf("Invalid input.\n");
             return EXIT_FAILURE;
         }
 
@@ -116,14 +114,34 @@ static void initialize_list(List *list)
     list->size = 0;
 }
 
+static int read_int(const char *prompt, int *value)
+{
+    int result;
+    int character;
+
+    printf("%s", prompt);
+    result = scanf("%d", value);
+
+    while ((character = getchar()) != '\n' && character != EOF)
+        ;
+
+    if (result != 1)
+    {
+        printf("Invalid input.\n");
+        return 0;
+    }
+
+    return 1;
+}
+
 /* ========================================================================= */
 
 static void create_list(List *list)
 {
     int n;
 
-    printf("Enter number of elements (0-%d): ", MAX_SIZE);
-    scanf("%d", &n);
+    if (!read_int("Enter number of elements (0-100): ", &n))
+        return;
 
     if (n < 0 || n > MAX_SIZE)
     {
@@ -134,7 +152,10 @@ static void create_list(List *list)
     printf("Enter %d elements:\n", n);
 
     for (int i = 0; i < n; ++i)
-        scanf("%d", &list->items[i]);
+    {
+        if (!read_int("Enter element: ", &list->items[i]))
+            return;
+    }
 
     list->size = n;
 
@@ -154,11 +175,9 @@ static void insert_element(List *list)
         return;
     }
 
-    printf("Enter element: ");
-    scanf("%d", &value);
-
-    printf("Enter position (0-%d): ", list->size);
-    scanf("%d", &position);
+    if (!read_int("Enter element: ", &value) ||
+        !read_int("Enter position: ", &position))
+        return;
 
     if (position < 0 || position > list->size)
     {
@@ -187,8 +206,8 @@ static void delete_element(List *list)
         return;
     }
 
-    printf("Enter position to delete (0-%d): ", list->size - 1);
-    scanf("%d", &position);
+    if (!read_int("Enter position to delete: ", &position))
+        return;
 
     if (position < 0 || position >= list->size)
     {
@@ -210,8 +229,8 @@ static void search_element(const List *list)
 {
     int value;
 
-    printf("Enter element to search: ");
-    scanf("%d", &value);
+    if (!read_int("Enter element to search: ", &value))
+        return;
 
     for (int i = 0; i < list->size; ++i)
     {
