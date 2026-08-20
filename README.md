@@ -218,14 +218,20 @@ After completing these programs, students will understand:
 
 ## Quality Improvements
 
-Compared to conventional laboratory implementations, these programs include:
+The implementations have been reviewed for boundary handling, pointer updates,
+and resource ownership. They include:
 
 - Proper boundary validation
+- Checked integer input for menu choices and data-entry prompts
 - Overflow and underflow handling
-- Memory leak prevention
+- Cleanup of linked structures and the BST before normal termination
+- Fresh-tree replacement semantics when the BST is created again
 - Consistent coding style
 - Readable function decomposition
 - Professional documentation and comments
+
+Malformed input causes the current program to terminate safely after reporting
+the error; it is never used as an uninitialized or stale integer value.
 
 ---
 
