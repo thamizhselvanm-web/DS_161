@@ -39,6 +39,7 @@ static void pop(Node **top);
 static void peek(const Node *top);
 static void display(const Node *top);
 static void free_stack(Node **top);
+static int read_int(const char *prompt, int *value);
 
 /* ========================================================================= */
 
@@ -59,9 +60,7 @@ int main(void)
         printf("4. Display\n");
         printf("5. Exit\n");
         printf("----------------------------------------\n");
-        printf("Enter your choice: ");
-
-        if (scanf("%d", &choice) != 1)
+        if (!read_int("Enter your choice: ", &choice))
         {
             free_stack(&top);
             return EXIT_FAILURE;
@@ -70,8 +69,8 @@ int main(void)
         switch (choice)
         {
             case 1:
-                printf("Enter data: ");
-                scanf("%d", &data);
+                if (!read_int("Enter data: ", &data))
+                    break;
                 push(&top, data);
                 break;
 
@@ -96,6 +95,26 @@ int main(void)
                 printf("Invalid choice. Please try again.\n");
         }
     }
+}
+
+static int read_int(const char *prompt, int *value)
+{
+    int result;
+    int character;
+
+    printf("%s", prompt);
+    result = scanf("%d", value);
+
+    while ((character = getchar()) != '\n' && character != EOF)
+        ;
+
+    if (result != 1)
+    {
+        printf("Invalid input.\n");
+        return 0;
+    }
+
+    return 1;
 }
 
 /* ========================================================================= */
