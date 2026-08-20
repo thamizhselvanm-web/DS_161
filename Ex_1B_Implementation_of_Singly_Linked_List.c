@@ -43,6 +43,7 @@ static void delete_position(Node **head, int position);
 static void search_element(const Node *head, int data);
 static void display_list(const Node *head);
 static void free_list(Node **head);
+static int read_int(const char *prompt, int *value);
 
 /* ========================================================================= */
 
@@ -65,9 +66,7 @@ int main(void)
         printf("5. Display List\n");
         printf("6. Exit\n");
         printf("----------------------------------------\n");
-        printf("Enter your choice: ");
-
-        if (scanf("%d", &choice) != 1)
+        if (!read_int("Enter your choice: ", &choice))
         {
             free_list(&head);
             return EXIT_FAILURE;
@@ -76,26 +75,26 @@ int main(void)
         switch (choice)
         {
             case 1:
-                printf("Enter data: ");
-                scanf("%d", &data);
+                if (!read_int("Enter data: ", &data))
+                    break;
                 insert_beginning(&head, data);
                 break;
 
             case 2:
-                printf("Enter data: ");
-                scanf("%d", &data);
+                if (!read_int("Enter data: ", &data))
+                    break;
                 insert_end(&head, data);
                 break;
 
             case 3:
-                printf("Enter position (0-based): ");
-                scanf("%d", &position);
+                if (!read_int("Enter position (0-based): ", &position))
+                    break;
                 delete_position(&head, position);
                 break;
 
             case 4:
-                printf("Enter element to search: ");
-                scanf("%d", &data);
+                if (!read_int("Enter element to search: ", &data))
+                    break;
                 search_element(head, data);
                 break;
 
@@ -112,6 +111,26 @@ int main(void)
                 printf("Invalid choice. Please try again.\n");
         }
     }
+}
+
+static int read_int(const char *prompt, int *value)
+{
+    int result;
+    int character;
+
+    printf("%s", prompt);
+    result = scanf("%d", value);
+
+    while ((character = getchar()) != '\n' && character != EOF)
+        ;
+
+    if (result != 1)
+    {
+        printf("Invalid input.\n");
+        return 0;
+    }
+
+    return 1;
 }
 
 /* ========================================================================= */
