@@ -137,6 +137,19 @@ Linked List Implementation
 
 > *Array queue uses a **Circular Queue**, providing constant-time enqueue and dequeue.
 
+### Binary Search Tree Complexity
+
+For a tree with height $h$:
+
+| Operation | Average Case | Worst Case |
+|-----------|-------------:|-----------:|
+| Insert | O(log n) | O(n) |
+| Search | O(log n) | O(n) |
+| Traversal | O(n) | O(n) |
+| Space | O(n) | O(n) |
+
+The worst case occurs when inserted values produce a completely skewed tree.
+
 ---
 
 ## Algorithms Implemented
