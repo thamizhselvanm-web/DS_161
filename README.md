@@ -33,6 +33,7 @@ This project contains menu-driven implementations of fundamental data structures
 | **Ex 3.B** | Array Implementation of Queue | Queue (Circular Array) |
 | **Ex 4.A** | Linked List Implementation of Stack | Stack |
 | **Ex 4.B** | Linked List Implementation of Queue | Queue |
+| **Ex 5** | Binary Search Tree | Binary Search Tree |
 
 ---
 
@@ -49,7 +50,8 @@ DS_Lab/
 ├── Ex_3A_Array_Implementation_of_Stack.c
 ├── Ex_3B_Array_Implementation_of_Queue.c
 ├── Ex_4A_Linked_List_Implementation_of_Stack.c
-└── Ex_4B_Linked_List_Implementation_of_Queue.c
+├── Ex_4B_Linked_List_Implementation_of_Queue.c
+└── Ex_5_Binary_Search_Tree.c
 ```
 
 ---
