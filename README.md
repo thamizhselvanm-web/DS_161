@@ -165,16 +165,29 @@ The worst case occurs when inserted values produce a completely skewed tree.
 
 ---
 
-## Compilation
+## Compilation and Execution
 
-Compile any program using **GCC**:
+Install GCC through MinGW-w64, MSYS2, or a similar toolchain, then compile one
+source file at a time with warnings enabled:
 
-```bash
-gcc -std=c11 -Wall -Wextra -Wpedantic -O2 Ex_3A_Array_Implementation_of_Stack.c -o stack
-./stack
+```powershell
+gcc -std=c11 -Wall -Wextra -Wpedantic -O2 `
+	Ex_5_Binary_Search_Tree.c -o Ex_5_Binary_Search_Tree.exe
+.\Ex_5_Binary_Search_Tree.exe
 ```
 
-Replace the filename with the required experiment.
+In PowerShell, use `.\program.exe` to run an executable in the current
+directory. In a Unix-like shell, use `./program`. Replace the source and output
+names with the experiment you want to run. Each program is interactive and
+expects integer input at its menu prompts.
+
+Example for Experiment 3.A:
+
+```powershell
+gcc -std=c11 -Wall -Wextra -Wpedantic -O2 `
+	Ex_3A_Array_Implementation_of_Stack.c -o Ex_3A_Array_Implementation_of_Stack.exe
+.\Ex_3A_Array_Implementation_of_Stack.exe
+```
 
 ---
 
