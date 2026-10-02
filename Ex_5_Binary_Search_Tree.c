@@ -1,3 +1,33 @@
+/*
+===============================================================================
+                     DATA STRUCTURES LABORATORY
+===============================================================================
+
+Experiment : 5
+Title      : Implementation of Binary Search Tree
+Language   : C
+Standard   : C11
+Status     : Reviewed & Verified
+
+Description:
+    Implements a Binary Search Tree with creation, insertion, duplicate
+    rejection, key search, recursive traversals, and dynamic cleanup.
+
+Operations:
+    1. Create BST
+    2. Traverse (Preorder, Inorder, Postorder)
+    3. Search Element
+    4. Exit
+
+Complexity:
+    Insert      : O(log n) avg, O(n) worst
+    Search      : O(log n) avg, O(n) worst
+    Traversals  : O(n)
+    Space       : O(n)
+
+===============================================================================
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
