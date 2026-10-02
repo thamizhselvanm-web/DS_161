@@ -7,6 +7,7 @@ Experiment : 4.B
 Title      : Linked List Implementation of Queue
 Language   : C
 Standard   : C11
+Status     : Reviewed & Verified
 
 Operations:
     1. Enqueue
