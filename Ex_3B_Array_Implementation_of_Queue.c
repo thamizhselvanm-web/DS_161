@@ -7,6 +7,7 @@ Experiment : 3.B
 Title      : Array Implementation of Queue
 Language   : C
 Standard   : C11
+Status     : Reviewed & Verified
 
 Implementation:
     Circular Queue using a fixed-size array.
