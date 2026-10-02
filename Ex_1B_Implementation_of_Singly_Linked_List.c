@@ -7,6 +7,7 @@ Experiment : 1.B
 Title      : Implementation of Singly Linked List
 Language   : C
 Standard   : C11
+Status     : Reviewed & Verified
 
 Operations:
     1. Insert at Beginning
