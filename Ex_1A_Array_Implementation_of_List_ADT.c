@@ -7,6 +7,7 @@ Experiment : 1.A
 Title      : Array Implementation of List ADT
 Language   : C
 Standard   : C11
+Status     : Reviewed & Verified
 
 Description:
     Implements a List ADT using a fixed-size array.
