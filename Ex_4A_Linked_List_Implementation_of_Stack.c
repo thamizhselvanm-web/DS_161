@@ -7,6 +7,7 @@ Experiment : 4.A
 Title      : Linked List Implementation of Stack
 Language   : C
 Standard   : C11
+Status     : Reviewed & Verified
 
 Operations:
     1. Push
