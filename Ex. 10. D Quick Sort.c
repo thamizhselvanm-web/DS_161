@@ -1,105 +1,138 @@
-﻿PROGRAM:  
+/*
+===============================================================================
+                     DATA STRUCTURES LABORATORY
+===============================================================================
 
-#include<stdio.h>  
+Experiment : 10.D
+Title      : Implementation of Quick Sort
+Language   : C
+Standard   : C11
+Status     : Reviewed & Verified
 
-// Function to swap two elements in the array  
+Description:
+    Implements the divide-and-conquer Quick Sort algorithm using Lomuto
+    partitioning. Selects the last element as the pivot, partitions the array
+    such that elements smaller than pivot precede it, and recursively sorts
+    the left and right sub-arrays.
 
-void swap(int* a, int* b) { 
+Operations:
+    1. Read Array Elements
+    2. Lomuto Partitioning
+    3. Recursive Quick Sort
+    4. Display Original & Sorted Arrays
 
-     int temp = *a; 
+Complexity:
+    Best Case Time    : O(n log n)
+    Average Case Time : O(n log n)
+    Worst Case Time   : O(n^2) (already sorted array with naive pivot)
+    Space Complexity  : O(log n) auxiliary stack space
 
-     *a = *b; 
+===============================================================================
+*/
 
-     *b = temp; }  
+#include <stdio.h>
+#include <stdlib.h>
 
-// Function to partition the array and return the index of the pivot  
+#define MAX_SIZE 100
 
-int partition(int arr[], int low, int high) { 
+/* Function Prototypes */
+static void swap(int *a, int *b);
+static int partition(int arr[], int low, int high);
+static void quick_sort(int arr[], int low, int high);
+static void print_array(const int arr[], int size);
 
-     int pivot = arr[high]; 
+/* ========================================================================= */
 
- // Choosing the last element as the pivot 
+int main(void) {
+    int arr[MAX_SIZE];
+    int n;
 
-     int i = low - 1;  
+    printf("========================================\n");
+    printf("          QUICK SORT ALGORITHM\n");
+    printf("========================================\n");
 
-// Index of smaller element      
+    printf("Enter number of elements (1-%d): ", MAX_SIZE);
+    if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_SIZE) {
+        printf("Using default demonstration array.\n");
+        const int demo[] = {12, 7, 11, 13, 5, 6};
+        n = (int)(sizeof(demo) / sizeof(demo[0]));
+        for (int i = 0; i < n; i++)
+            arr[i] = demo[i];
+    } else {
+        printf("Enter %d elements:\n", n);
+        for (int i = 0; i < n; i++) {
+            if (scanf("%d", &arr[i]) != 1) {
+                fprintf(stderr, "Error: Invalid array element.\n");
+                return EXIT_FAILURE;
+            }
+        }
+    }
 
-for (int j = low; j < high; j++) { 
+    printf("\nOriginal array:\n");
+    print_array(arr, n);
 
-         // If current element is smaller than the pivot 
+    quick_sort(arr, 0, n - 1);
 
-         if (arr[j] < pivot) { 
+    printf("Sorted array:\n");
+    print_array(arr, n);
 
-             i++; 
+    return EXIT_SUCCESS;
+}
 
-             swap(&arr[i], &arr[j]); 
+/* ========================================================================= */
 
-         } 
+static void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
-     }  
+static int partition(int arr[], int low, int high) {
+    int pivot = arr[high]; /* Lomuto: last element as pivot */
+    int i = low - 1;
 
-    // Place the pivot element in its correct position 
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
 
-     swap(&arr[i + 1], &arr[high]); 
+    swap(&arr[i + 1], &arr[high]);
+    return i + 1;
+}
 
-     return i + 1; 
+static void quick_sort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
 
- }  
+        /* Recursively sort sub-arrays */
+        quick_sort(arr, low, pi - 1);
+        quick_sort(arr, pi + 1, high);
+    }
+}
 
-// Function to implement Quick Sort  
+static void print_array(const int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d%s", arr[i], (i == size - 1) ? "" : " ");
+    }
+    printf("\n");
+}
 
-void quickSort(int arr[], int low, int high) { 
+/*
+===============================================================================
+                               SAMPLE OUTPUT
+===============================================================================
+========================================
+          QUICK SORT ALGORITHM
+========================================
+Enter number of elements (1-100): 6
+Enter 6 elements:
+12 7 11 13 5 6
 
-     if (low < high) { 
-
-         // Partitioning index 
-
-
-
-         int pi = partition(arr, low, high); 
-
-         // Recursive sorting of the sub-arrays 
-
-         quickSort(arr, low, pi - 1); 
-
-         quickSort(arr, pi + 1, high); 
-
-     } 
-
- }  
-
-// Function to print the array  
-
-void printArray(int arr[], int size) { 
-
-     for (int i = 0; i < size; i++) 
-
-         printf("%d ", arr[i]);     printf("\n"); 
-
- }  
-
-int main() { 
-
-     int arr[] = {12, 7, 11, 13, 5, 6}; 
-
-     int n = sizeof(arr) / sizeof(arr[0]);   
-
-    printf("Original array:\n"); 
-
-     printArray(arr, n); 
-
-     quickSort(arr, 0, n - 1); 
-
-     printf("Sorted array:\n"); 
-
-     printArray(arr, n); 
-
-     return 0; 
-
- }    
-
-//OUTPUT:  
-
-Original array: 12 7 11 13 5 6  
-
-Sorted array: 5 6 7 11 12 13
+Original array:
+12 7 11 13 5 6
+Sorted array:
+5 6 7 11 12 13
+===============================================================================
+*/
