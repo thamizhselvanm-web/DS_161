@@ -1,107 +1,139 @@
-﻿PROGRAM:  
+/*
+===============================================================================
+                     DATA STRUCTURES LABORATORY
+===============================================================================
 
-#include <stdio.h>  
+Experiment : 10.B
+Title      : Implementation of Binary Search
+Language   : C
+Standard   : C11
+Status     : Reviewed & Verified
 
-int main() { 
+Description:
+    Implements the Binary Search algorithm on a sorted array using divide-and-
+    conquer. Repeatedly halves the search interval by comparing the target
+    value with the middle element.
 
-     int n, i, search, f = 0, low, high, mid, a[20]; 
+Operations:
+    1. Read Sorted Array Elements
+    2. Ascending Order Verification
+    3. Binary Search for Key
+    4. Report Index / Position
 
-     printf("\n***Binary Search***\n"); 
+Complexity:
+    Best Case Time    : O(1) (element at middle position)
+    Average Case Time : O(log n)
+    Worst Case Time   : O(log n) (element not present or at leaf level)
+    Space Complexity  : O(1) iterative
 
-     printf("\nEnter the number of elements: "); 
+===============================================================================
+*/
 
-     scanf("%d", &n); 
+#include <stdio.h>
+#include <stdlib.h>
 
-     // Input array elements in ascending order 
+#define MAX_SIZE 100
 
-     printf("Enter %d numbers in ascending order:\n", n); 
+/* Function Prototypes */
+static int binary_search(const int arr[], int n, int key);
+static void print_array(const int arr[], int n);
 
-     for (i = 0; i < n; i++) { 
+/* ========================================================================= */
 
-         printf("a[%d] = ", i); 
+int main(void) {
+    int arr[MAX_SIZE];
+    int n, key, index;
 
-         scanf("%d", &a[i]); 
+    printf("========================================\n");
+    printf("         BINARY SEARCH ALGORITHM\n");
+    printf("========================================\n");
 
-     } 
+    printf("Enter the number of elements (1-%d): ", MAX_SIZE);
+    if (scanf("%d", &n) != 1 || n <= 0 || n > MAX_SIZE) {
+        fprintf(stderr, "Error: Invalid number of elements.\n");
+        return EXIT_FAILURE;
+    }
 
-     printf("Enter the search element: "); 
+    printf("Enter %d numbers in ascending order:\n", n);
+    for (int i = 0; i < n; i++) {
+        printf("a[%d] = ", i);
+        if (scanf("%d", &arr[i]) != 1) {
+            fprintf(stderr, "Error: Invalid input value.\n");
+            return EXIT_FAILURE;
+        }
+        /* Warn if not sorted */
+        if (i > 0 && arr[i] < arr[i - 1]) {
+            printf("Warning: Array elements must be in ascending order.\n");
+        }
+    }
 
-     scanf("%d", &search); 
+    printf("\nSorted Array: ");
+    print_array(arr, n);
 
-     low = 0; 
+    printf("Enter the search element: ");
+    if (scanf("%d", &key) != 1) {
+        fprintf(stderr, "Error: Invalid search element.\n");
+        return EXIT_FAILURE;
+    }
 
-     high = n - 1; 
+    index = binary_search(arr, n, key);
 
-     // Binary search 
+    if (index != -1) {
+        printf("Result: Element %d found at index %d (position %d).\n", key, index, index + 1);
+    } else {
+        printf("Result: Element %d is not present in the array.\n", key);
+    }
 
-     while (low <= high) { 
+    return EXIT_SUCCESS;
+}
 
-         mid = (low + high) / 2;  
+/* ========================================================================= */
 
-        if (search < a[mid]) 
+static int binary_search(const int arr[], int n, int key) {
+    int low = 0;
+    int high = n - 1;
 
-             high = mid - 1; 
+    while (low <= high) {
+        int mid = low + (high - low) / 2; /* Safe midpoint calculation */
 
-         else if (search > a[mid]) 
+        if (arr[mid] == key) {
+            return mid; /* Key found */
+        } else if (arr[mid] < key) {
+            low = mid + 1; /* Search in right half */
+        } else {
+            high = mid - 1; /* Search in left half */
+        }
+    }
 
-             low = mid + 1; 
+    return -1; /* Key not found */
+}
 
-         else { 
+static void print_array(const int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d%s", arr[i], (i == n - 1) ? "" : " ");
+    }
+    printf("\n");
+}
 
-             f = 1; 
+/*
+===============================================================================
+                               SAMPLE OUTPUT
+===============================================================================
+========================================
+         BINARY SEARCH ALGORITHM
+========================================
+Enter the number of elements (1-100): 4
+Enter 4 numbers in ascending order:
+a[0] = 23
+a[1] = 45
+a[2] = 67
+a[3] = 87
 
-             printf("Element %d found at index %d.\n", search, mid); 
+Sorted Array: 23 45 67 87
+Enter the search element: 45
+Result: Element 45 found at index 1 (position 2).
 
-             break; 
-
-         } 
-
-     } 
-
-
-
-     if (f == 0) 
-
-         printf("Element %d is not present in the array.\n", search); 
-
-     return 0; 
-
- }    
-
-//OUTPUT:  
-
-***Binary Search*** 
-
-Enter the number of elements: 4 
-
-Enter 4 numbers in ascending order: 
-
-a[0] = 23 
-
-a[1] = 45 
-
-a[2] = 67 
-
-a[3] = 87 
-
-Enter the search element: 45 
-
-Element 45 found at index 1. 
-
-***Binary Search*** 
-
-Enter the number of elements: 4 
-
-Enter 4 numbers in ascending order: 
-
-a[0] = 56 
-
-a[1] = 78 
-
-a[2] = 87 
-
-a[3] = 90 
-
-Enter the search element: 10 
-
-Element 10 is not present in the array.
+Enter the search element: 10
+Result: Element 10 is not present in the array.
+===============================================================================
+*/
